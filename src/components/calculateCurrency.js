@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import cc from 'currency-codes'
 import config from "../config";
 
 export default function CalculateCurrency(){
@@ -68,15 +69,20 @@ export default function CalculateCurrency(){
 
     return(
         <form className='form-currency'>
-        <h3>Date: {date}</h3>
-            <p>{base}: { amount==='' ? 0 : amount} to equal {result} { convertTo} </p>
+
+        <h4>Курс взятий за поточну дату: {date}</h4>
+            <p>{ amount==='' ? 0 : amount} <b>{base}</b> дорівнює {result} <b>{ convertTo}</b> </p>
             <div className="form-wrapper">
                 <div className="input-block">
+
                     <div className="mb-3">
-                        <input type="text"  onChange={handlerInput} className="form-control" />
+                        <label htmlFor='baseCurrency'>{cc.code(base).currency}</label>
+                        <input id='baseCurrency' type="text"  onChange={handlerInput} className="form-control" />
                     </div>
                     <div className="mb-3">
+                        <label htmlFor='resultCurrency'>{cc.code(convertTo).currency}</label>
                         <input
+                            id='resultCurrency'
                             type="text"
                             className="form-control"
                             value={amount === "" ? "0" : result === null ? "Calculating..." : result }
@@ -85,6 +91,7 @@ export default function CalculateCurrency(){
                 </div>
                 <div className="select-block">
                     <div className="mb-3">
+
                         <select
                             name='base'
                             value={base}
@@ -117,7 +124,8 @@ export default function CalculateCurrency(){
                 </div>
             </div>
 
-            <button type="button" onClick={handleSwap} className="btn btn-primary">Swap</button>
+            <button type="button" onClick={handleSwap} className="btn btn-primary">Змінити</button>
+
         </form>
     )
 }

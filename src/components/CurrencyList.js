@@ -34,7 +34,7 @@ export default function CurrencyList (){
                     <p>Базова валюта: { items[0]?items[0].base_ccy: 'UAH'}</p>
                 </div>
                 <ul className="list-currency">
-                <li className='item-currency'>
+                <li className='item-currency active'>
                     <span></span>
                     <span></span>
                     <span>Купівля</span>
