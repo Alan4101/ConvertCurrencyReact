@@ -2,6 +2,7 @@ import React,  { useState, useEffect} from 'react'
 import CurrencyItem from "./CurrencyItem";
 
 export default function CurrencyList (){
+
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);

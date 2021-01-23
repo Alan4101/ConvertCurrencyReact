@@ -5,7 +5,7 @@ export default function NavComponent(){
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                    <NavLink to="/" className="navbar-brand">Converter</NavLink>
+                    {/*<NavLink to="/" className="navbar-brand">Converter</NavLink>*/}
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -14,13 +14,13 @@ export default function NavComponent(){
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <NavLink to="/"
-                                    className="nav-link active"
+                                    className="nav-link"
                                     activeClassName="active"
                                 >Home</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink
-                                    className="nav-link active"
+                                    className="nav-link "
                                     aria-current="page"
                                     to="/converter"
                                 >Converter</NavLink>

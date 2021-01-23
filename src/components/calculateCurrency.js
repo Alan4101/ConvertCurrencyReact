@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import config from "../config";
 
 export default function CalculateCurrency(){
 
@@ -13,7 +14,6 @@ export default function CalculateCurrency(){
         date: ''
     })
 
-
     const handlerSelect = e =>{
         setOptions(prev => {
             return{...prev, [e.target.name]: e.target.value,}
@@ -26,32 +26,50 @@ export default function CalculateCurrency(){
         })
     }
 
-    useEffect(()=>{
-        const amount = optionsCurrency.amount
+    const handleSwap = e => {
+        e.preventDefault()
 
-        if(amount === isNaN){
-            return;
-        }else {
-            axios.get(`https://api.exchangeratesapi.io/latest?base=${optionsCurrency.base}`)
-                .then( res =>{
+        setOptions(prev => {
+            return{...prev, convertTo: optionsCurrency.base, base: optionsCurrency.convertTo, result: null}
+        })
+    }
 
-                    const date = res.data.date
-                    const result = (res.data.rates[optionsCurrency.convertTo] * amount).toFixed(4)
+    useEffect(() => {
+        let cleanup = false
 
-                    setOptions(prev =>{
-                        return{ ...prev, date, result }
-                    })
+        const calculate = async () =>{
 
-                })
-                .catch( err => console.log(err))
+            if(optionsCurrency.amount === isNaN){
+                return null
+            }else {
+                try {
+                    const response = await axios.get(`${config.API_EXCHANGE}${optionsCurrency.base}`)
+                    const date = response.data.date
+                    const result = (response.data.rates[optionsCurrency.convertTo] * optionsCurrency.amount).toFixed(4)
+
+                    if(!cleanup){
+                        setOptions(prev =>{
+                            return{ ...prev, date, result }
+                        })
+                    }
+                }catch (error) {
+                    console.log(error.message)
+                }
+            }
         }
+
+        calculate()
+
+        return ()=> cleanup =true
+
     },[optionsCurrency])
 
-    const { date, result , amount} = optionsCurrency
+    const { date, result , amount, convertTo, base} = optionsCurrency
 
     return(
         <form className='form-currency'>
         <h3>Date: {date}</h3>
+            <p>{base}: { amount==='' ? 0 : amount} to equal {result} { convertTo} </p>
             <div className="form-wrapper">
                 <div className="input-block">
                     <div className="mb-3">
@@ -69,14 +87,14 @@ export default function CalculateCurrency(){
                     <div className="mb-3">
                         <select
                             name='base'
-                            value={optionsCurrency.base}
+                            value={base}
                             className="form-select"
                             aria-label="Default select example"
                             onChange={handlerSelect}
                         >
                             {
                                 currencies
-                                    .filter(i => i !== optionsCurrency.convertTo)
+                                    .filter(i => i !== convertTo)
                                     .map( currency => <option key={currency} value={currency}>{currency}</option>)
                             }
                         </select>
@@ -84,14 +102,14 @@ export default function CalculateCurrency(){
                     <div className="mb-3">
                         <select
                             name='convertTo'
-                            value={optionsCurrency.convertTo}
+                            value={convertTo}
                             className="form-select"
                             aria-label="Default select example"
                             onChange={handlerSelect}
                         >
                             {
                                 currencies
-                                    .filter( i => i !== optionsCurrency.base)
+                                    .filter( i => i !== base)
                                     .map( currency => <option key={currency} value={currency}>{currency}</option>)
                             }
                         </select>
@@ -99,7 +117,7 @@ export default function CalculateCurrency(){
                 </div>
             </div>
 
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="button" onClick={handleSwap} className="btn btn-primary">Swap</button>
         </form>
     )
 }

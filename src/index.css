@@ -60,3 +60,6 @@ input,select{
   padding:.5em;
   width: 40%;
 }
+.active{
+  font-weight: bold;
+}
