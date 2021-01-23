@@ -1,5 +1,6 @@
 import React,  { useState, useEffect} from 'react'
 import CurrencyItem from "./CurrencyItem";
+import config from "../config";
 
 export default function CurrencyList (){
 
@@ -8,7 +9,7 @@ export default function CurrencyList (){
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`)
+        fetch(config.API_PRIVATBANK)
             .then(res => res.json())
             .then(
                 (result) => {
