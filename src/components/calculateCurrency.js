@@ -15,25 +15,15 @@ export default function CalculateCurrency(){
 
 
     const handlerSelect = e =>{
-
         setOptions(prev => {
-            return{
-                ...prev,
-                [e.target.name]: e.target.value,
-
-            }
-
+            return{...prev, [e.target.name]: e.target.value,}
         })
-        console.log(optionsCurrency)
     }
 
     const handlerInput = e =>{
-        const val = e.target.value
-
         setOptions((prevState) => {
-            return {...prevState, amount: val ,result: null, data: null}
+            return {...prevState, amount: e.target.value ,result: null, data: null}
         })
-
     }
 
     useEffect(()=>{
