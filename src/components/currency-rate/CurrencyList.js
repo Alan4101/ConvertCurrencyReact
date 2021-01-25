@@ -2,7 +2,7 @@ import React,  { useState, useEffect} from 'react'
 
 import Loader from "react-loader-spinner"
 
-import config from "../../config"
+import configAPI from "../configAPI"
 import CurrencyItem from "./CurrencyItem"
 
 export default function CurrencyList (){
@@ -12,7 +12,7 @@ export default function CurrencyList (){
     const [items, setItems] = useState([])
 
     useEffect(() => {
-        fetch(config.API_PRIVATBANK)
+        fetch(configAPI.API_PRIVATBANK)
             .then(res => res.json())
             .then(
                 (result) => {

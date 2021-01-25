@@ -3,11 +3,17 @@ input,select{
     margin: 0;
 
 }
-.form-currency{
-    width: 500px;
-}
-.form-wrapper{
+.form-container{
     width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.form-wrapper{
+    /*width: 100%;*/
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -16,7 +22,8 @@ input,select{
 .form-block{
     display: flex;
     flex-direction: row;
-
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .form-block>.mb-3{
     padding: 1em;

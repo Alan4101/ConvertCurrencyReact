@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner'
 import axios from 'axios'
 import cc from 'currency-codes'
 
-import config from "../../config"
+import configAPI from "../configAPI"
 
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { TextField,
@@ -27,7 +27,8 @@ export default function CalculateCurrency(){
         convertTo:'EUR',
         amount: '',
         result: '',
-        date: ''
+        date: '',
+        oneRate: ''
     })
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false);
@@ -56,7 +57,7 @@ export default function CalculateCurrency(){
         })
     }
 
-    const { date, result , amount, convertTo, base} = optionsCurrency
+
 
     useEffect(() => {
         let cleanup = false
@@ -66,13 +67,13 @@ export default function CalculateCurrency(){
                 if(optionsCurrency.amount === isNaN){
                     return null
                 }else {
-                    const response = await axios.get(`${config.API_EXCHANGE}${optionsCurrency.base}`)
+                    const response = await axios.get(`${configAPI.API_EXCHANGE}${optionsCurrency.base}`)
                     const date = response.data.date
                     const result = (response.data.rates[optionsCurrency.convertTo] * optionsCurrency.amount).toFixed(4)
-
+                    const oneRate = (response.data.rates[optionsCurrency.convertTo]).toFixed(4)
                     if(!cleanup){
                         setOptions(prev =>{
-                            return{ ...prev, date, result }
+                            return{ ...prev, date, result, oneRate }
                         })
                     }
                     setIsLoading(true)
@@ -87,7 +88,7 @@ export default function CalculateCurrency(){
 
         return ()=> cleanup =true
 
-    }, [base, convertTo, amount])
+    }, [optionsCurrency.base, optionsCurrency.convertTo, optionsCurrency.amount])
 
     const useStyles = makeStyles((theme) => ({
         formControl: {
@@ -98,6 +99,8 @@ export default function CalculateCurrency(){
         },
     }));
     const classes = useStyles()
+
+    const { date, result , amount, convertTo, base, oneRate} = optionsCurrency
 
     if(isError) {
         return(
@@ -117,19 +120,21 @@ export default function CalculateCurrency(){
     }else {
         return(
             <div className="form-container">
-                <h4>Курс взятий за поточну дату: {date}</h4>
+                <h4 className="text-center">Дата курсу: {date}</h4>
                 <p>{ amount==='' ? 0 : amount} <b>{base}</b> дорівнює {result} <b>{ convertTo}</b> </p>
 
                 <form className='form-currency'>
                     <div className="form-wrapper">
                         <div className="form-block">
                             <div className="mb-3">
-                                <TextField
-                                    itemType='number'
-                                    label={cc.code(base).currency}
-                                    onChange={handleInput}
-                                    onKeyPress={onlyNumber}
-                                />
+                                <FormControl className={classes.formControl}>
+                                    <TextField
+                                        itemType='number'
+                                        label={cc.code(base).currency}
+                                        onChange={handleInput}
+                                        onKeyPress={onlyNumber}
+                                    />
+                                </FormControl>
                             </div>
                             <div className="mb-3">
                                 <FormControl className={classes.formControl}>
@@ -162,11 +167,13 @@ export default function CalculateCurrency(){
                         </div>
                         <div className="form-block">
                             <div className="mb-3">
-                                <TextField
-                                    disabled
-                                    label={cc.code(convertTo).currency}
-                                    value={amount === "" ? "" : result === null ? "Calculating..." : result }
-                                />
+                                <FormControl className={classes.formControl}>
+                                    <TextField
+                                        disabled
+                                        label={cc.code(convertTo).currency}
+                                        value={amount === "" ? "" : result === null ? "Calculating..." : result }
+                                    />
+                                </FormControl>
                             </div>
                             <div className="mb-3">
                                 <FormControl className={classes.formControl}>
@@ -186,6 +193,10 @@ export default function CalculateCurrency(){
                                     </Select>
                                 </FormControl>
                             </div>
+
+                        </div>
+                        <div className="form-block">
+                            <p>1 {base} = {oneRate} {convertTo}</p>
                         </div>
                     </div>
                 </form>
