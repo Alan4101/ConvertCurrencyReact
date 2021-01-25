@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 export default function NavComponent(){
     return(
-        <nav className="navbar navbar-expand-lg navbar-light  ingigo-c">
+        <nav className="navbar navbar-expand-lg navbar-light  indigo-c">
                 <div className="container-fluid">
                     {/*<NavLink to="/" className="navbar-brand">Converter</NavLink>*/}
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
