@@ -1,19 +1,19 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 /*loader*/
-.loader-container{
+.loader-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -22,63 +22,71 @@ code {
 
   backdrop-filter: blur(2px);
 }
-.loader-wrapper{
+.loader-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: inherit;
 }
-.main-container{
+.main-container {
   width: 100%;
   height: 100vh;
-  background-color: #282C34;
+  background-color: #282c34;
   color: #8a85ff;
 }
-/**/
-.active{
-  font-weight: bold;
+/*nav*/
+.nav-link {
+  color: #ffffff !important;
 }
-.indigo-c{
+.active-link{
+  font-weight: bold;
+  color: #8a85ff !important;
+}
+.nav-link:hover{
+  color: #fff !important;
+  background-color: #8a85ff;
+  transition: all .3ms linear;
+}
+.indigo-c {
   /* background: #8540f5; */
   background-color: #24292e;
 }
-.dark-bg{
-  background-color: #282C34;
+.dark-bg {
+  background-color: #282c34;
 }
 /*Navbar*/
-.navbar-collapse{
+.navbar-collapse {
   justify-content: center;
 }
-.nav-link{
-  color: #ffffff !important;
 
-}
 /*home page*/
-.table-currency{
+.table-currency {
   box-shadow: 0px 1px 5px -2px #000;
 }
-.table-header>th{
+.table-header > th {
   font-weight: bold;
 }
-.item-currency{
+.item-currency {
   width: 350px;
   list-style-type: none;
   display: flex;
   border-bottom: 1px solid #999999;
 }
-.table-header>th,.color-table-text>th, .color-table-text>td:not(.base-currency){
+.table-header > th,
+.color-table-text > th,
+.color-table-text > td:not(.base-currency) {
   color: #8a85ff !important;
 }
-.base-currency{
+.base-currency {
   color: #d4d3eb;
 }
 
 /***
 * Calculate-currency
 ***/
-.container-converter{
+.container-converter {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1em 0 ;
+  padding: 1em 0;
 }

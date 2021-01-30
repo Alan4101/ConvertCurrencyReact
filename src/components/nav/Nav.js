@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export default function NavComponent() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light  indigo-c">
+    <nav className="navbar navbar-expand-lg navbar-dark  indigo-c">
       <div className="container-fluid">
         {/*<NavLink to="/" className="navbar-brand">Converter</NavLink>*/}
         <button
@@ -20,15 +20,22 @@ export default function NavComponent() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink to="/" className="nav-link" activeClassName="active">
+              <NavLink
+                exact
+                to="/"
+                className="nav-link"
+                activeClassName="active-link"
+              >
                 Головна
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
+                exact
                 className="nav-link "
                 aria-current="page"
                 to="/converter"
+                activeClassName="active-link"
               >
                 Конвертер валют
               </NavLink>
