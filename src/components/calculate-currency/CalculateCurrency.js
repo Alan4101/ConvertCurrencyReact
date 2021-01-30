@@ -18,6 +18,7 @@ import {
 } from "@material-ui/core";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 
+import CalculateUACurrency from "./CalculateUACurrency" 
 import "./calculate-curency.css";
 
 export default function CalculateCurrency() {
@@ -236,6 +237,7 @@ export default function CalculateCurrency() {
             </div>
           </div>
         </form>
+                        <CalculateUACurrency/>
       </div>
     );
   }
