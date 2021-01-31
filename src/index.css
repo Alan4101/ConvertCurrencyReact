@@ -90,3 +90,10 @@ code {
   align-items: center;
   padding: 1em 0;
 }
+.form-currency{
+  border: 1px solid #8a85ff;
+  border-radius: 10px;
+  margin: 1em 0;
+  background-color: #fff;
+}
+/*CalculateUACurrency*/

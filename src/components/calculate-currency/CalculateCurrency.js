@@ -107,11 +107,6 @@ export default function CalculateCurrency() {
     selectEmpty: {
       marginTop: theme.spacing(2),
       color: "#fff",
-    },
-    label:{
-      color: 'white'
-      // color: '#8a85ff'
-
     }
   }));
 

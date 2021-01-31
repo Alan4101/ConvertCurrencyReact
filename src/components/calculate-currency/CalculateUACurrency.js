@@ -18,13 +18,15 @@ export default function CalculateUACurrency() {
   const [state, setState] = useState({
     ammount: null,
     result: null,
-    currnecy: "USD",
+    currnecy: "",
   });
+
   useEffect(() => {
     const getCurrencyRate = async () => {
       try {
         const datas = await axios.get(configAPI.API_PRIVATBANK);
         setData(datas.data);
+        console.log(datas.data)
       } catch (error) {
         throw error;
       }
@@ -34,13 +36,14 @@ export default function CalculateUACurrency() {
   }, []);
 
   useEffect(() => {
-    console.log(state.ammount);
-    data.map((i) => {
+
+    data.forEach( i=>{
       if (i.ccy === state.currnecy) {
         setState((prev) => {
+            const result = (state.ammount * Number(i.buy)).toFixed(3)
           return {
             ...prev,
-            result: state.ammount * Number(i.buy),
+            result
           };
         });
       }
@@ -68,6 +71,7 @@ export default function CalculateUACurrency() {
       };
     });
   };
+
   const handleInputChange = (e) => {
     setState((prevState) => {
       return {
@@ -76,6 +80,7 @@ export default function CalculateUACurrency() {
       };
     });
   };
+
   const { amount, result, currnecy } = state;
 
   return (
@@ -103,11 +108,11 @@ export default function CalculateUACurrency() {
                   name="currnecy"
                   onChange={handleChangeSelect}
                 >
-                  {data.map((currency) => (
-                    <MenuItem key={currency.sale} value={currency.ccy}>
-                      {currency.ccy}
-                    </MenuItem>
-                  ))}
+                  {data.map( currency => (
+                        <MenuItem key={currency.buy} value={currency.ccy}>
+                          {currency.ccy}
+                        </MenuItem>
+                      ))}
                 </Select>
               </FormControl>
             </div>
