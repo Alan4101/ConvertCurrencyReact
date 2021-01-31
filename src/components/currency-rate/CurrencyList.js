@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 
 import configAPI from "../configAPI";
 import CurrencyItem from "./CurrencyItem";
-
+import { Alert, AlertTitle } from "@material-ui/lab";
 export default function CurrencyList() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -26,7 +26,12 @@ export default function CurrencyList() {
   }, []);
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        Щось пішло не так!
+      </Alert>
+    )
   } else if (!isLoaded) {
     // return <div>Loading...</div>
     return (

@@ -9,6 +9,9 @@ import {
   InputLabel,
   FormControl,
   MenuItem,
+  FormControlLabel,
+  Checkbox,
+  FormGroup,
   makeStyles,
 } from "@material-ui/core";
 
@@ -19,6 +22,8 @@ export default function CalculateUACurrency() {
     ammount: null,
     result: null,
     currnecy: "",
+    oneRate: null,
+    chacked: false
   });
 
   useEffect(() => {
@@ -26,7 +31,6 @@ export default function CalculateUACurrency() {
       try {
         const datas = await axios.get(configAPI.API_PRIVATBANK);
         setData(datas.data);
-        console.log(datas.data)
       } catch (error) {
         throw error;
       }
@@ -36,14 +40,15 @@ export default function CalculateUACurrency() {
   }, []);
 
   useEffect(() => {
-
-    data.forEach( i=>{
+    data.forEach((i) => {
       if (i.ccy === state.currnecy) {
         setState((prev) => {
-            const result = (state.ammount * Number(i.buy)).toFixed(3)
+          const result = (state.ammount * Number(i.buy)).toFixed(4);
+          const oneRate = (1 * Number(i.buy)).toFixed(4);
           return {
             ...prev,
-            result
+            result,
+            oneRate,
           };
         });
       }
@@ -81,60 +86,96 @@ export default function CalculateUACurrency() {
     });
   };
 
-  const { amount, result, currnecy } = state;
+const handleBuyOrSale = () =>{
+
+}
+  const { amount, result, currnecy, oneRate, chacked } = state;
 
   return (
-    <div className="form-ua-convert">
-      <form className="form-currency">
-        <div className="form-wrapper">
-          <div className="form-block">
-            <div className="mb-3">
-              <FormControl className={classes.formControl}>
-                <TextField
-                  itemType="number"
-                  label="Введіть суму"
-                  className={classes.label}
-                  onChange={handleInputChange}
-                />
-              </FormControl>
+    <div className="form-container">
+      <h4>Базова валюта UAH</h4>
+
+      <div className="form-ua-convert">
+        <form className="form-currency">
+          <div className="form-wrapper">
+            <div className="form-block">
+              <div className="mb-3">
+                <FormControl component="fieldset">
+                  <FormGroup aria-label="position" row>
+                    <FormControlLabel
+                      value="buy"
+                      control={<Checkbox 
+                        checked={!chacked} 
+                        onChange={handleBuyOrSale} 
+                        color="primary" />}
+                      label="Купити"
+                      labelPlacement="end"
+                      
+                    />
+                    <FormControlLabel
+                      value="sale"
+                      control={<Checkbox 
+                        checked={chacked} 
+                        onChange={handleBuyOrSale} 
+                        color="primary" />}
+                      label="Продати"
+                      labelPlacement="end"
+                    />
+                  </FormGroup>
+                </FormControl>
+              </div>
             </div>
-            <div className="mb-3">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="baseCurrencySelect">Оберіть валюту</InputLabel>
-                <Select
-                  labelId="baseCurrencySelect"
-                  id="demo-simple-select"
-                  value={currnecy}
-                  name="currnecy"
-                  onChange={handleChangeSelect}
-                >
-                  {data.map( currency => (
-                        <MenuItem key={currency.buy} value={currency.ccy}>
-                          {currency.ccy}
-                        </MenuItem>
-                      ))}
-                </Select>
-              </FormControl>
+            <div className="form-block">
+              <div className="mb-3">
+                <FormControl className={classes.formControl}>
+                  <TextField
+                    itemType="number"
+                    label="Введіть суму"
+                    className={classes.label}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+              </div>
+              <div className="mb-3">
+                <FormControl className={classes.formControl}>
+                  <InputLabel id="baseCurrencySelect">
+                    Оберіть валюту
+                  </InputLabel>
+                  <Select
+                    labelId="baseCurrencySelect"
+                    id="demo-simple-select"
+                    value={currnecy}
+                    name="currnecy"
+                    onChange={handleChangeSelect}
+                  >
+                    {data.map((currency) => (
+                      <MenuItem key={currency.buy} value={currency.ccy}>
+                        {currency.ccy}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            </div>
+            <div className="form-block">
+              <div className="mb-3">
+                <FormControl className={classes.formControl}>
+                  <TextField
+                    disabled
+                    label="UAH"
+                    value={
+                      amount ? "" : result === null ? "Calculating..." : result
+                    }
+                  />
+                </FormControl>
+              </div>
+            </div>
+            <div className="form-block">
+              <p>{oneRate ? `1 ${currnecy} = ${oneRate} UAH` : ""}</p>
             </div>
           </div>
-          <div className="form-block">
-            <div className="mb-3">
-              <FormControl className={classes.formControl}>
-                <TextField
-                  disabled
-                  label="UAH"
-                  value={
-                    amount ? "" : result === null ? "Calculating..." : result
-                  }
-                />
-              </FormControl>
-            </div>
-          </div>
-          <div className="form-block">
-            <p>{/* 1 {base} = {oneRate} {convertTo} */}</p>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
