@@ -19,7 +19,7 @@ import {
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 
 import CalculateUACurrency from "./CalculateUACurrency" 
-import "./calculate-curency.css";
+import "./calculate-curency.css"
 
 export default function CalculateCurrency() {
   const currencies = ["USD", "EUR", "PLN", "CZK", "RUB"];
@@ -107,6 +107,9 @@ export default function CalculateCurrency() {
     selectEmpty: {
       marginTop: theme.spacing(2),
       color: "#fff",
+    },
+    select:{
+      minWidth: 70
     }
   }));
 
@@ -132,29 +135,23 @@ export default function CalculateCurrency() {
   } else {
     return (
       <div className="form-container">
-        <h4 className="text-center">Дата курсу: {date}</h4>
+        <h4 className="text-center">Конвертер іноземних валют</h4>
+        
+        <form className="form-currency">
+          <div className="form-legend">
+          <p className="text-center">Дата курсу: {date}</p>
         <p>
           {amount === "" ? 0 : amount} <b>{base}</b> дорівнює {result}{" "}
           <b>{convertTo}</b>
         </p>
 
-        <form className="form-currency">
+            <p></p>
+          </div>
           <div className="form-wrapper">
             <div className="form-block">
-              <div className="mb-3">
-                <FormControl className={classes.formControl}>
-                  <TextField
-                    itemType="number"
-                    label={cc.code(base).currency}
-                    onChange={handleInput}
-                    onKeyPress={onlyNumber}
-                    className= {classes.label}
-                  />
-                </FormControl>
-              </div>
-              <div className="mb-3">
-                <FormControl className={classes.formControl}>
-                  <InputLabel id="baseCurrencySelect">Базова валюта</InputLabel>
+            <div className="mb-3">
+                <FormControl className={classes.select}>
+                  <InputLabel id="baseCurrencySelect">From</InputLabel>
                   <Select
                     labelId="baseCurrencySelect"
                     id="demo-simple-select"
@@ -172,10 +169,22 @@ export default function CalculateCurrency() {
                   </Select>
                 </FormControl>
               </div>
+              <div className="mb-3">
+                <FormControl className={classes.formControl}>
+                  <TextField
+                    itemType="number"
+                    label={cc.code(base).currency}
+                    onChange={handleInput}
+                    onKeyPress={onlyNumber}
+                    className= {classes.label}
+                  />
+                </FormControl>
+              </div>
+              
             </div>
             <div className="form-block">
-              <div className="mb-3">
-                <div className="form-block__wrapper">
+              <div className="plr-1">
+              <div className="form-block__wrapper">
                   <IconButton
                     className="btn color-theme"
                     onClick={handleSwap}
@@ -184,28 +193,15 @@ export default function CalculateCurrency() {
                     <ImportExportIcon />
                   </IconButton>
                 </div>
+              
               </div>
+                
             </div>
             <div className="form-block">
-              <div className="mb-3">
-                <FormControl className={classes.formControl}>
-                  <TextField
-                    disabled
-                    label={cc.code(convertTo).currency}
-                    value={
-                      amount === ""
-                        ? ""
-                        : result === null
-                        ? "Calculating..."
-                        : result
-                    }
-                  />
-                </FormControl>
-              </div>
-              <div className="mb-3">
-                <FormControl className={classes.formControl}>
+            <div className="mb-3">
+                <FormControl className={classes.select}>
                   <InputLabel id="convertCurrencySelect">
-                    Валюта для конвертації
+                    To
                   </InputLabel>
                   <Select
                     labelId="convertCurrencySelect"
@@ -224,6 +220,22 @@ export default function CalculateCurrency() {
                   </Select>
                 </FormControl>
               </div>
+              <div className="mb-3">
+                <FormControl className={classes.formControl}>
+                  <TextField
+                    disabled
+                    label={cc.code(convertTo).currency}
+                    value={
+                      amount === ""
+                        ? ""
+                        : result === null
+                        ? "Calculating..."
+                        : result
+                    }
+                  />
+                </FormControl>
+              </div>
+              
             </div>
             <div className="form-block">
               <p>
@@ -232,7 +244,7 @@ export default function CalculateCurrency() {
             </div>
           </div>
         </form>
-                        <CalculateUACurrency/>
+        <CalculateUACurrency/>
       </div>
     );
   }

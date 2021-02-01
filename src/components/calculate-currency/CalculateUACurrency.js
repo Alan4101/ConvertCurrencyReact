@@ -14,7 +14,7 @@ import {
   FormGroup,
   makeStyles,
 } from "@material-ui/core";
-
+import "./calculate-curency.css"
 export default function CalculateUACurrency() {
   const [data, setData] = useState([]);
 
@@ -64,6 +64,9 @@ export default function CalculateUACurrency() {
       marginTop: theme.spacing(2),
       color: "#fff",
     },
+    select:{
+        minWidth: 70
+    }
   }));
 
   const classes = useStyles();
@@ -93,10 +96,14 @@ const handleBuyOrSale = () =>{
 
   return (
     <div className="form-container">
-      <h4>Базова валюта UAH</h4>
+      <h4>Конвертер валют в UAH</h4>
 
       <div className="form-ua-convert">
+      
         <form className="form-currency">
+            <div className="form-legend">
+            <p>Базова валюта UAH</p>
+            </div>
           <div className="form-wrapper">
             <div className="form-block">
               <div className="mb-3">
@@ -126,20 +133,10 @@ const handleBuyOrSale = () =>{
               </div>
             </div>
             <div className="form-block">
-              <div className="mb-3">
-                <FormControl className={classes.formControl}>
-                  <TextField
-                    itemType="number"
-                    label="Введіть суму"
-                    className={classes.label}
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-              </div>
-              <div className="mb-3">
-                <FormControl className={classes.formControl}>
+            <div className="mb-3">
+                <FormControl className={classes.select}>
                   <InputLabel id="baseCurrencySelect">
-                    Оберіть валюту
+                    From
                   </InputLabel>
                   <Select
                     labelId="baseCurrencySelect"
@@ -156,6 +153,17 @@ const handleBuyOrSale = () =>{
                   </Select>
                 </FormControl>
               </div>
+              <div className="mb-3">
+                <FormControl className={classes.formControl}>
+                  <TextField
+                    itemType="number"
+                    label="Введіть суму"
+                    className={classes.label}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+              </div>
+              
             </div>
             <div className="form-block">
               <div className="mb-3">
