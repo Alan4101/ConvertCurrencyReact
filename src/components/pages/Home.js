@@ -1,5 +1,6 @@
 import React from "react";
 import CurrencyList from "../currency-rate/CurrencyList";
+import { TemtTest } from "../TempTestComponent";
 
 export default function Home() {
   return (
@@ -8,7 +9,8 @@ export default function Home() {
         <div className="title-page">
           <h1>Курс валют</h1>
         </div>
-      <CurrencyList />
+      {/* <CurrencyList /> */}
+      <TemtTest/>
       </div>
     </div>
     

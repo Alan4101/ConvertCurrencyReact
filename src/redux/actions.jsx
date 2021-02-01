@@ -1,6 +1,7 @@
 import axios from "axios"
 
 import configAPI from "../components/configAPI"
+
 import { FETCH_FOREIGN_CURRENCY, FETCH_UA_CURRENCY } from "./types"
 
 export function fetchUACurrency() {
