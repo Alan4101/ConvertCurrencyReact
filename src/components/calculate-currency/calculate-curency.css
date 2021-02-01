@@ -43,11 +43,11 @@ select {
 .color-theme {
   background-color: #8a85ff !important;
 }
-.form-legend{
+.form-legend {
   text-align: center;
   font-weight: bold;
-  padding: 1em;   
+  padding: 1em;
 }
-.plr-1{
-  padding:0 1em;
+.plr-1 {
+  padding: 0 1em;
 }

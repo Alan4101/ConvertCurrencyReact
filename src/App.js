@@ -6,6 +6,7 @@ import NavComponent from "./components/nav/Nav";
 import Home from "./components/pages/Home";
 import Converter from "./components/pages/Converter";
 
+
 function App() {
   return (
     <BrowserRouter>

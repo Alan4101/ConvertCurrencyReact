@@ -4,7 +4,9 @@ import Loader from "react-loader-spinner";
 
 import configAPI from "../configAPI";
 import CurrencyItem from "./CurrencyItem";
+
 import { Alert, AlertTitle } from "@material-ui/lab";
+
 export default function CurrencyList() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);

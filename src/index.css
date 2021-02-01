@@ -39,14 +39,14 @@ code {
 .nav-link {
   color: #ffffff !important;
 }
-.active-link{
+.active-link {
   font-weight: bold;
   color: #8a85ff !important;
 }
-.nav-link:hover{
+.nav-link:hover {
   color: #fff !important;
   background-color: #8a85ff;
-  transition: all .3ms linear;
+  transition: all 0.3ms linear;
 }
 .indigo-c {
   /* background: #8540f5; */
@@ -91,7 +91,7 @@ code {
   align-items: center;
   padding: 1em 0;
 }
-.form-currency{
+.form-currency {
   border: 1px solid #8a85ff;
   border-radius: 10px;
   margin: 1em 0;
