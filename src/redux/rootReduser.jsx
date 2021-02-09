@@ -1,6 +1,8 @@
 import { combineReducers } from "redux"
-import { fetchForeignCurrencyReduser } from "./fetchForeignCurrencyReduser"
+import { appReduser } from "./appReduser"
+import { currencyReduser } from "./currencyReduser"
 
 export const rootReduser = combineReducers({
-  fetchforeignCurrency: fetchForeignCurrencyReduser,
-});
+  currency: currencyReduser,
+  loadingAndError: appReduser,
+})

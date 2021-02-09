@@ -61,6 +61,14 @@ code {
 }
 
 /*home page*/
+.title-page > h1 {
+  font-weight: bold;
+  font-size: 40px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #ae8b57;
+  text-align: left;
+  padding: 1em 0;
+}
 .table-currency {
   box-shadow: 0px 1px 5px -2px #000;
 }
@@ -92,9 +100,43 @@ code {
   padding: 1em 0;
 }
 .form-currency {
-  border: 1px solid #8a85ff;
-  border-radius: 10px;
+  width: 100%;
   margin: 1em 0;
   background-color: #fff;
 }
 /*CalculateUACurrency*/
+
+/*currency-list*/
+.table-container,
+.form-currency {
+  border-radius: 20px;
+  background-color: #2f333b;
+  box-shadow: 0 3px 15px #000;
+  padding-bottom: 1em;
+}
+.table-title {
+  text-align: left;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #d2d2d2;
+  padding: 0.5em;
+}
+.table-currency-rate {
+  width: 100%;
+  color: #d2d2d2;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.table-currency-rate > thead > tr > th {
+  background-color: #353942;
+  padding: 0.5em 0;
+  font-size: 20px;
+}
+.table-currency-rate > tbody > tr > th {
+  padding: 0.6em 0;
+  font-size: 18px;
+  /* font-size: calc(0.1rem + 1.23vw); */
+}
+.table-currency-rate > tbody > tr:nth-child(even) {
+  background-color: #353942;
+}

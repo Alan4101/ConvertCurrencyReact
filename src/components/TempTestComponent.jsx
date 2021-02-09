@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
-import Loader from "react-loader-spinner";
+import Loader from "react-loader-spinner"
 
-import configAPI from "../configAPI";
-import CurrencyItem from "./CurrencyItem";
+import configAPI from "../configAPI"
+import CurrencyItem from "./CurrencyItem"
 
-import { Alert, AlertTitle } from "@material-ui/lab";
+import { Alert, AlertTitle } from "@material-ui/lab"
 
 export default function CurrencyList() {
   const [error, setError] = useState(null);
