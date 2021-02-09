@@ -11,7 +11,12 @@ select {
   align-items: center;
   color: #8a85ff;
 }
-
+.form-currency {
+  border-radius: 20px;
+  background-color: #2f333b;
+  box-shadow: 0 3px 15px #000;
+  padding-bottom: 1em;
+}
 .form-wrapper {
   display: flex;
   justify-content: center;

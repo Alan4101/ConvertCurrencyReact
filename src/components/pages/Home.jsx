@@ -1,0 +1,29 @@
+import React from "react"
+import CurrencyList from "../currency-rate/CurrencyList"
+import CalculateCurrency from "../calculate-currency/CalculateCurrency"
+import CalculateUACurrency from "../calculate-currency/CalculateUACurrency"
+
+export default function Home() {
+  return (
+    <div className="main-container">
+      <div className="container text-center main-container">
+        <div className="title-page">
+          <h1>Конвертер валют</h1>
+        </div>
+        <div className="row">
+          <div className="col-6">
+            <CalculateCurrency />
+          </div>
+          <div className="col-6">
+            <CalculateUACurrency />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <CurrencyList />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

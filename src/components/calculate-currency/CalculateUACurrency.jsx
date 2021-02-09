@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import configAPI from "../configAPI";
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import configAPI from "../configAPI"
 
 // import { Alert, AlertTitle } from "@material-ui/lab";
 import {
@@ -13,10 +13,10 @@ import {
   Checkbox,
   FormGroup,
   makeStyles,
-} from "@material-ui/core";
-import "./calculate-curency.css";
+} from "@material-ui/core"
+import "./calculate-curency.css"
 export default function CalculateUACurrency() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([])
 
   const [state, setState] = useState({
     ammount: null,
@@ -24,36 +24,36 @@ export default function CalculateUACurrency() {
     currnecy: "",
     oneRate: null,
     chacked: false,
-  });
+  })
 
   useEffect(() => {
     const getCurrencyRate = async () => {
       try {
-        const datas = await axios.get(configAPI.API_PRIVATBANK);
-        setData(datas.data);
+        const datas = await axios.get(configAPI.API_PRIVATBANK)
+        setData(datas.data)
       } catch (error) {
-        throw error;
+        throw error
       }
-    };
+    }
 
-    getCurrencyRate();
-  }, []);
+    getCurrencyRate()
+  }, [])
 
   useEffect(() => {
     data.forEach((i) => {
       if (i.ccy === state.currnecy) {
         setState((prev) => {
-          const result = (state.ammount * Number(i.buy)).toFixed(4);
-          const oneRate = (1 * Number(i.buy)).toFixed(4);
+          const result = (state.ammount * Number(i.buy)).toFixed(4)
+          const oneRate = (1 * Number(i.buy)).toFixed(4)
           return {
             ...prev,
             result,
             oneRate,
-          };
-        });
+          }
+        })
       }
-    });
-  }, [state.ammount, state.currnecy, data]);
+    })
+  }, [state.ammount, state.currnecy, data])
 
   const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -67,30 +67,30 @@ export default function CalculateUACurrency() {
     select: {
       minWidth: 70,
     },
-  }));
+  }))
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   const handleChangeSelect = (e) => {
     setState((prevState) => {
       return {
         ...prevState,
         currnecy: e.target.value,
-      };
-    });
-  };
+      }
+    })
+  }
 
   const handleInputChange = (e) => {
     setState((prevState) => {
       return {
         ...prevState,
         ammount: e.target.value,
-      };
-    });
-  };
+      }
+    })
+  }
 
-  const handleBuyOrSale = () => {};
-  const { amount, result, currnecy, oneRate, chacked } = state;
+  const handleBuyOrSale = () => {}
+  const { amount, result, currnecy, oneRate, chacked } = state
 
   return (
     <div className="form-container">
@@ -184,5 +184,5 @@ export default function CalculateUACurrency() {
         </form>
       </div>
     </div>
-  );
+  )
 }
