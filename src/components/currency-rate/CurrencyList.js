@@ -1,55 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 
-import Loader from "react-loader-spinner";
+import {fetchUACurrency} from '../../redux/actions'
+import CurrencyItem from '../currency-rate/CurrencyItem'
+import { AlertComponent } from '../Alert'
+import { LoaderComponent } from '../Loader'
 
-import configAPI from "../configAPI";
-import CurrencyItem from "./CurrencyItem";
 
-import { Alert, AlertTitle } from "@material-ui/lab";
+const CurrencyList = () =>{
 
-export default function CurrencyList() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
+    const dispatch = useDispatch()
+    const currency = useSelector( state => state.currency.uaCurrency)
+    const loader = useSelector(state => state.loadingAndError.isLoaded)
+    const isError = useSelector(state => state.loadingAndError.loadError) 
 
-  useEffect(() => {
-    fetch(configAPI.API_PRIVATBANK)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setItems(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-  }, []);
+    React.useEffect(()=>{
+        dispatch(fetchUACurrency())
+    },[dispatch])
 
-  if (error) {
-    return (
-      <Alert severity="error">
-        <AlertTitle>Error</AlertTitle>
-        Щось пішло не так!
-      </Alert>
-    )
-  } else if (!isLoaded) {
-    // return <div>Loading...</div>
-    return (
-      <div className="loader-container">
-        <div className="loader-wrapper">
-          <Loader type="Bars" color="#8540f5" height={35} width={35} />
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="currency-list-container">
-        <div className="sub-title__base-ccy">
-          <p>Базова валюта: {items[0] ? items[0].base_ccy : "UAH"}</p>
-        </div>
-        <table className="table table-currency">
+    if(isError){
+      return <AlertComponent type="error" title="Помилка!" message="Щось пішло не так. Спробуйте пізніше!"/>
+    }else if(loader){
+      return <LoaderComponent/>
+    }else{
+      return(
+        <div className="container">
+            <h1>redux</h1>
+            <table className="table table-currency">
           <thead className="thead-dark">
             <tr className="table-header">
               <th scope="col">Валюта</th>
@@ -59,12 +36,15 @@ export default function CurrencyList() {
             </tr>
           </thead>
           <tbody>
-            {items.map((i) => (
+            {currency.map((i) => (
               <CurrencyItem key={i.ccy} data={i} />
             ))}
           </tbody>
         </table>
-      </div>
-    );
-  }
+        </div>
+    )
+    }
+    
 }
+
+export default CurrencyList

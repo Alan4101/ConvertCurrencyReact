@@ -1,4 +1,4 @@
-import { LOADER_SHOW_HIDE, IS_ERROR } from "./types"
+import { LOADER_SHOW, LOADER_HIDE, IS_ERROR_HIDE, IS_ERROR_SHOW } from "./types"
 
 const initialState = {
     isLoaded: false,
@@ -6,11 +6,17 @@ const initialState = {
 }
 export const appReduser = (state = initialState, action)=>{
     switch(action.type){
-        case LOADER_SHOW_HIDE: return{
+        case LOADER_SHOW: return{
             ...state, isLoaded: true
         }
-        case IS_ERROR: return{
-            ...state, loadError: action.payload
+        case LOADER_HIDE: return{
+            ...state, isLoaded: false
+        }
+        case IS_ERROR_HIDE: return{
+            ...state, loadError: null
+        }
+        case IS_ERROR_SHOW: return {
+            ...state, loadError: action.payload  
         }
         default: return state
     }
