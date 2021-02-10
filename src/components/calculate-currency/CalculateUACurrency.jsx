@@ -2,16 +2,12 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import configAPI from "../configAPI"
 
-// import { Alert, AlertTitle } from "@material-ui/lab";
 import {
   TextField,
   Select,
   InputLabel,
   FormControl,
   MenuItem,
-  FormControlLabel,
-  Checkbox,
-  FormGroup,
   makeStyles,
 } from "@material-ui/core"
 import "./calculate-curency.css"
@@ -57,7 +53,8 @@ export default function CalculateUACurrency() {
 
   const useStyles = makeStyles((theme) => ({
     formControl: {
-      minWidth: 200,
+      minWidth: 90,
+      width: 50,
       color: "#fff",
     },
     selectEmpty: {
@@ -89,51 +86,16 @@ export default function CalculateUACurrency() {
     })
   }
 
-  const handleBuyOrSale = () => {}
   const { amount, result, currnecy, oneRate, chacked } = state
 
   return (
     <div className="form-container">
-      <h4>Конвертер валют в UAH</h4>
-
       <div className="form-ua-convert">
         <form className="form-currency">
           <div className="form-legend">
-            <p>Базова валюта UAH</p>
+            <h2 className="table-title">Конвертер валют в UAH</h2>
           </div>
           <div className="form-wrapper">
-            <div className="form-block">
-              <div className="mb-3">
-                <FormControl component="fieldset">
-                  <FormGroup aria-label="position" row>
-                    <FormControlLabel
-                      value="buy"
-                      control={
-                        <Checkbox
-                          checked={!chacked}
-                          onChange={handleBuyOrSale}
-                          color="primary"
-                        />
-                      }
-                      label="Купити"
-                      labelPlacement="end"
-                    />
-                    <FormControlLabel
-                      value="sale"
-                      control={
-                        <Checkbox
-                          checked={chacked}
-                          onChange={handleBuyOrSale}
-                          color="primary"
-                        />
-                      }
-                      label="Продати"
-                      labelPlacement="end"
-                    />
-                  </FormGroup>
-                </FormControl>
-              </div>
-            </div>
             <div className="form-block">
               <div className="mb-3">
                 <FormControl className={classes.select}>
@@ -176,10 +138,13 @@ export default function CalculateUACurrency() {
                   />
                 </FormControl>
               </div>
+              <div className="mb-3">
+                <p>UAH</p>
+              </div>
             </div>
-            <div className="form-block">
+            {/* <div className="form-block">
               <p>{oneRate ? `1 ${currnecy} = ${oneRate} UAH` : ""}</p>
-            </div>
+            </div> */}
           </div>
         </form>
       </div>

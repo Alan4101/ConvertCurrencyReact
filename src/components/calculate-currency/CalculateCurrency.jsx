@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react"
 
-import Loader from "react-loader-spinner"
 import axios from "axios"
 import cc from "currency-codes"
 
 import configAPI from "../configAPI"
 
-import { Alert, AlertTitle } from "@material-ui/lab"
 import {
   TextField,
   IconButton,
@@ -19,6 +17,8 @@ import {
 import ImportExportIcon from "@material-ui/icons/ImportExport"
 
 import "./calculate-curency.css"
+import { LoaderComponent } from "../Loader"
+import { AlertComponent } from "../Alert"
 
 export default function CalculateCurrency() {
   const currencies = ["USD", "EUR", "PLN", "CZK", "RUB"]
@@ -118,19 +118,14 @@ export default function CalculateCurrency() {
 
   if (isError) {
     return (
-      <Alert severity="error">
-        <AlertTitle>Error</AlertTitle>
-        Щось пішло не так!
-      </Alert>
+      <AlertComponent
+        type="error"
+        title="Помилка!"
+        message="Щось пішло не так. Спробуйте пізніше!"
+      />
     )
   } else if (!isLoading) {
-    return (
-      <div className="loader-container">
-        <div className="loader-wrapper">
-          <Loader type="Bars" color="#8540f5" height={35} width={35} />
-        </div>
-      </div>
-    )
+    return <LoaderComponent />
   } else {
     return (
       <div className="form-container">

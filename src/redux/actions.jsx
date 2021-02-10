@@ -3,12 +3,15 @@ import axios from "axios"
 import configAPI from "../components/configAPI"
 
 import {
+  CHANGE_BASE,
   FETCH_FOREIGN_CURRENCY,
   FETCH_UA_CURRENCY,
   IS_ERROR_HIDE,
   IS_ERROR_SHOW,
   LOADER_HIDE,
   LOADER_SHOW,
+  CHANGE_CONVERT,
+  CHANGE_AMOUNT,
 } from "./types"
 
 export function loaderHide() {
@@ -32,6 +35,24 @@ export function errorShow(text) {
     payload: text,
   }
 }
+export function changeBase(base_value) {
+  return {
+    type: CHANGE_BASE,
+    payload: base_value,
+  }
+}
+export function changeConvert(convert_value) {
+  return {
+    type: CHANGE_CONVERT,
+    payload: convert_value,
+  }
+}
+export function changeAmount(amount_value) {
+  return {
+    type: CHANGE_AMOUNT,
+    payload: amount_value,
+  }
+}
 export function fetchUACurrency() {
   return async (dispatch) => {
     try {
@@ -44,9 +65,15 @@ export function fetchUACurrency() {
     }
   }
 }
-export function fetchForeignCurrency() {
+export function fetchForeignCurrency(base = "USD") {
   return async (dispatch) => {
-    const responce = await axios.get(configAPI.API_EXCHANGE)
-    dispatch({ type: FETCH_FOREIGN_CURRENCY, payload: responce.data })
+    try {
+      dispatch(loaderShow())
+      const responce = await axios.get(`${configAPI.API_EXCHANGE}${base}`)
+      dispatch({ type: FETCH_FOREIGN_CURRENCY, payload: responce.data })
+      dispatch(loaderHide())
+    } catch (err) {
+      dispatch(errorShow(err))
+    }
   }
 }
