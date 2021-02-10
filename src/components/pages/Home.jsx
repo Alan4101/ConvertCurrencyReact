@@ -2,7 +2,6 @@ import React from "react"
 import CurrencyList from "../currency-rate/CurrencyList"
 import CalculateCurrency from "../calculate-currency/CalculateCurrency"
 import CalculateUACurrency from "../calculate-currency/CalculateUACurrency"
-import TempCalculateCurrency from "../calculate-currency/TempCalculateCurrency"
 
 export default function Home() {
   return (
@@ -13,8 +12,7 @@ export default function Home() {
         </div>
         <div className="row">
           <div className="col-md-6 col-sm-12">
-            <TempCalculateCurrency />
-            {/* <CalculateCurrency /> */}
+            <CalculateCurrency />
           </div>
           <div className="col-md-6 col-sm-12">
             <CalculateUACurrency />
