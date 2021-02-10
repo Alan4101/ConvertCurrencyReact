@@ -83,3 +83,11 @@ select {
 .form-ua-convert {
   width: 100%;
 }
+@media (max-width: 1024px) and (min-width: 320px) {
+  .form-wrapper {
+    flex-direction: column;
+  }
+  .form-block__wrapper {
+    transform: rotate(0deg);
+  }
+}

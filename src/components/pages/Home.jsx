@@ -12,11 +12,11 @@ export default function Home() {
           <h1>Конвертер валют</h1>
         </div>
         <div className="row">
-          <div className="col-6">
+          <div className="col-md-6 col-sm-12">
             <TempCalculateCurrency />
             {/* <CalculateCurrency /> */}
           </div>
-          <div className="col-6">
+          <div className="col-md-6 col-sm-12">
             <CalculateUACurrency />
           </div>
         </div>
