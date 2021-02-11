@@ -145,6 +145,9 @@ code {
   .table-currency-rate > tbody > tr > th {
     font-size: 14px;
   }
+  .main-container {
+    padding-bottom: 2em;
+  }
 }
 @media (max-width: 320px) {
   .title-page > h1 {

@@ -14,7 +14,15 @@ import ImportExportIcon from "@material-ui/icons/ImportExport"
 import "./calculate-curency.css"
 
 export default function CurrencyForm(props) {
-  const { date, result, amount, convertTo, base, currencies } = props.opt
+  const {
+    date,
+    result,
+    amount,
+    convertTo,
+    base,
+    currencies,
+    oneRate,
+  } = props.opt
 
   const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -52,7 +60,7 @@ export default function CurrencyForm(props) {
           <h2 className="table-title">Конвертер іноземних валют</h2>
           <p className="">Середній курс у банках на: {date}</p>
         </div>
-        <div className="form-wrapper">
+        <div className="form-wrapper form-foreign__wrapper">
           <div className="form-block">
             <div className="mb-3">
               <FormControl className={classes.select}>
@@ -136,11 +144,11 @@ export default function CurrencyForm(props) {
               </FormControl>
             </div>
           </div>
-          {/* <div className="form-block">
-            <p>
-              1 {base} = {oneRate} {convertTo}
-            </p>
-          </div> */}
+        </div>
+        <div className="form-block">
+          <p className="one-rate-p">
+            1 {base} = {oneRate} {convertTo}
+          </p>
         </div>
       </form>
     </div>

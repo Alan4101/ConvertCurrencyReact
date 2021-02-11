@@ -26,6 +26,7 @@ export default function CalculateUACurrency() {
 
   const select = useRef(null)
   const paragrafCurrency = useRef(null)
+
   useEffect(() => {
     const getCurrencyRate = async () => {
       try {
@@ -44,8 +45,8 @@ export default function CalculateUACurrency() {
       data.forEach((i) => {
         if (i.ccy === state.currnecy) {
           setState((prev) => {
-            const result = (state.ammount * Number(i.sale)).toFixed(4)
-            const oneRate = (1 * Number(i.sale)).toFixed(4)
+            const result = (state.ammount / Number(i.sale)).toFixed(4)
+            const oneRate = (1 / Number(i.sale)).toFixed(4)
             return {
               ...prev,
               result,
@@ -106,17 +107,24 @@ export default function CalculateUACurrency() {
     })
   }
 
+  const swapBlockElements = () => {
+    const seletctParent = select.current.parentElement
+    const paragrafParent = paragrafCurrency.current.parentElement
+
+    seletctParent.prepend(paragrafCurrency.current)
+    paragrafParent.prepend(select.current)
+  }
+
   const handleSale = (e) => {
     e.preventDefault()
     setState((prev) => {
       return {
         ...prev,
         activeBtn: false,
+        saleOrBuy: false,
       }
     })
-
-    select.current.parentElement.prepend(paragrafCurrency.current)
-    paragrafCurrency.current.parentElement.appendChild(select.current)
+    swapBlockElements()
   }
   /*купити */
   const handleBuy = (e) => {
@@ -124,14 +132,13 @@ export default function CalculateUACurrency() {
     setState((prev) => {
       return {
         ...prev,
+        saleOrBuy: true,
         activeBtn: true,
       }
     })
-
-    select.current.parentElement.prepend(paragrafCurrency.current)
-    paragrafCurrency.current.parentElement.appendChild(select.current)
+    swapBlockElements()
   }
-  const { amount, result, currnecy, activeBtn, saleOrBuy } = state
+  const { amount, result, currnecy, activeBtn, saleOrBuy, oneRate } = state
 
   return (
     <div className="form-container">
@@ -160,8 +167,7 @@ export default function CalculateUACurrency() {
               </button>
             </div>
           </div>
-
-          <div className="form-wrapper">
+          <div className="form-wrapper ">
             <div className="form-block">
               <div ref={select} className="mb-3">
                 <FormControl className={classes.select}>
@@ -170,7 +176,6 @@ export default function CalculateUACurrency() {
                     labelId="baseCurrencySelect"
                     id="demo-simple-select"
                     value={currnecy}
-                    name="currnecy"
                     onChange={handleChangeSelect}
                   >
                     {data.map((currency) => (
@@ -200,6 +205,7 @@ export default function CalculateUACurrency() {
                 <FormControl className={classes.formControl}>
                   <TextField
                     disabled
+                    name="value"
                     label={saleOrBuy ? "UAH" : currnecy}
                     value={
                       amount ? "" : result === null ? "Calculating..." : result
@@ -208,9 +214,15 @@ export default function CalculateUACurrency() {
                 </FormControl>
               </div>
             </div>
-            {/* <div className="form-block">
-              <p>{oneRate ? `1 ${currnecy} = ${oneRate} UAH` : ""}</p>
-            </div> */}
+          </div>
+          <div className="form-block">
+            <p className="one-rate-p">
+              {oneRate
+                ? saleOrBuy
+                  ? `1 ${currnecy} = ${oneRate} UAH`
+                  : `1 UAH = ${oneRate} ${currnecy} `
+                : ""}
+            </p>
           </div>
         </form>
       </div>
