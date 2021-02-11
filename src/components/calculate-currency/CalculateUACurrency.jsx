@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import axios from "axios"
-import configAPI from "../configAPI"
 
 import {
   TextField,
@@ -10,18 +9,23 @@ import {
   MenuItem,
   makeStyles,
 } from "@material-ui/core"
+import configAPI from "../configAPI"
+
 import "./calculate-curency.css"
+
 export default function CalculateUACurrency() {
   const [data, setData] = useState([])
 
   const [state, setState] = useState({
     ammount: null,
     result: null,
-    currnecy: "",
-    oneRate: null,
-    chacked: false,
+    currnecy: "USD",
+    saleOrBuy: true,
+    activeBtn: true,
   })
 
+  const select = useRef(null)
+  const paragrafCurrency = useRef(null)
   useEffect(() => {
     const getCurrencyRate = async () => {
       try {
@@ -36,20 +40,36 @@ export default function CalculateUACurrency() {
   }, [])
 
   useEffect(() => {
-    data.forEach((i) => {
-      if (i.ccy === state.currnecy) {
-        setState((prev) => {
-          const result = (state.ammount * Number(i.buy)).toFixed(4)
-          const oneRate = (1 * Number(i.buy)).toFixed(4)
-          return {
-            ...prev,
-            result,
-            oneRate,
-          }
-        })
-      }
-    })
-  }, [state.ammount, state.currnecy, data])
+    if (!state.saleOrBuy) {
+      data.forEach((i) => {
+        if (i.ccy === state.currnecy) {
+          setState((prev) => {
+            const result = (state.ammount * Number(i.sale)).toFixed(4)
+            const oneRate = (1 * Number(i.sale)).toFixed(4)
+            return {
+              ...prev,
+              result,
+              oneRate,
+            }
+          })
+        }
+      })
+    } else {
+      data.forEach((i) => {
+        if (i.ccy === state.currnecy) {
+          setState((prev) => {
+            const result = (state.ammount * Number(i.buy)).toFixed(4)
+            const oneRate = (1 * Number(i.buy)).toFixed(4)
+            return {
+              ...prev,
+              result,
+              oneRate,
+            }
+          })
+        }
+      })
+    }
+  }, [state.ammount, state.currnecy, data, state.saleOrBuy, state.activeBtn])
 
   const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -86,7 +106,32 @@ export default function CalculateUACurrency() {
     })
   }
 
-  const { amount, result, currnecy, oneRate, chacked } = state
+  const handleSale = (e) => {
+    e.preventDefault()
+    setState((prev) => {
+      return {
+        ...prev,
+        activeBtn: false,
+      }
+    })
+
+    select.current.parentElement.prepend(paragrafCurrency.current)
+    paragrafCurrency.current.parentElement.appendChild(select.current)
+  }
+  /*купити */
+  const handleBuy = (e) => {
+    e.preventDefault()
+    setState((prev) => {
+      return {
+        ...prev,
+        activeBtn: true,
+      }
+    })
+
+    select.current.parentElement.prepend(paragrafCurrency.current)
+    paragrafCurrency.current.parentElement.appendChild(select.current)
+  }
+  const { amount, result, currnecy, activeBtn, saleOrBuy } = state
 
   return (
     <div className="form-container">
@@ -94,12 +139,33 @@ export default function CalculateUACurrency() {
         <form className="form-currency">
           <div className="form-legend">
             <h2 className="table-title">Конвертер валют в UAH</h2>
+            <div className="form-block">
+              <button
+                disabled={activeBtn ? true : false}
+                onClick={handleBuy}
+                className={
+                  activeBtn ? "btnm-primary active-btn" : "btnm-primary"
+                }
+              >
+                Купити
+              </button>
+              <button
+                disabled={activeBtn ? false : true}
+                onClick={handleSale}
+                className={
+                  activeBtn ? "btnm-primary" : "btnm-primary active-btn"
+                }
+              >
+                Продати
+              </button>
+            </div>
           </div>
+
           <div className="form-wrapper">
             <div className="form-block">
-              <div className="mb-3">
+              <div ref={select} className="mb-3">
                 <FormControl className={classes.select}>
-                  <InputLabel id="baseCurrencySelect">From</InputLabel>
+                  <InputLabel id="baseCurrencySelect"></InputLabel>
                   <Select
                     labelId="baseCurrencySelect"
                     id="demo-simple-select"
@@ -127,19 +193,19 @@ export default function CalculateUACurrency() {
               </div>
             </div>
             <div className="form-block">
+              <div ref={paragrafCurrency} className="mb-3">
+                <p className="currency-text">UAH</p>
+              </div>
               <div className="mb-3">
                 <FormControl className={classes.formControl}>
                   <TextField
                     disabled
-                    label="UAH"
+                    label={saleOrBuy ? "UAH" : currnecy}
                     value={
                       amount ? "" : result === null ? "Calculating..." : result
                     }
                   />
                 </FormControl>
-              </div>
-              <div className="mb-3">
-                <p>UAH</p>
               </div>
             </div>
             {/* <div className="form-block">

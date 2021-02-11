@@ -3,7 +3,6 @@ import axios from "axios"
 import configAPI from "../configAPI"
 
 import CurrencyForm from "./CurrencyForm"
-
 import { LoaderComponent } from "../Loader"
 import { AlertComponent } from "../Alert"
 

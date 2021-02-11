@@ -43,9 +43,9 @@ select {
 .MuiFormLabel-root {
   color: rgb(161, 161, 161) !important;
 }
-.form-block:nth-child(2) {
+/* .form-block:nth-child(2) {
   justify-content: flex-end;
-}
+} */
 .form-block > .mb-3 {
   padding: 1em;
 }
@@ -67,7 +67,7 @@ select {
 }
 .form-legend {
   text-align: left;
-  padding: 1em;
+  padding: 1em 2em;
 }
 .form-legend > h2 {
   padding: 0;
@@ -78,16 +78,62 @@ select {
   color: #adadad;
 }
 .plr-1 {
-  padding: 0 1em;
+  /* padding: 0 1em; */
 }
 .form-ua-convert {
   width: 100%;
 }
+
+/*CurrencyUAComponent*/
+.mb-3 > .currency-text {
+  margin: 0 2em 5px 0;
+  color: #ffffff;
+  font-weight: bold;
+}
+.mb-3 {
+  display: flex;
+  align-items: flex-end;
+}
+.form-ua-convert > .form-currency > .form-wrapper {
+  justify-content: space-around;
+  padding: 1em;
+}
+.btnm-primary {
+  border: none;
+  color: #adadad;
+  background-color: transparent;
+  padding: 0.2em 1.8em;
+  margin-right: 0.5em;
+}
+.btnm-primary:hover,
+.btnm-primary:active,
+.btnm-primary:focus,
+.active-btn {
+  outline: none;
+  color: #fff;
+  background-color: #40444f;
+}
+.form-legend > .form-block {
+  justify-content: flex-start;
+}
+
 @media (max-width: 1024px) and (min-width: 320px) {
   .form-wrapper {
     flex-direction: column;
   }
   .form-block__wrapper {
     transform: rotate(0deg);
+  }
+  .form-block {
+    justify-content: flex-start;
+  }
+  .form-container > .form-currency > .form-wrapper {
+    padding: 1em;
+  }
+  .form-container > .form-currency > .form-wrapper .form-block:nth-child(2) {
+    justify-content: flex-end;
+  }
+  .btnm-primary {
+    padding: 0.2em 1.4em;
   }
 }
