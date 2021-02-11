@@ -145,4 +145,13 @@ select {
     padding-top: 0 !important;
     margin-bottom: 0 !important;
   }
+  .block-center {
+    /* justify-content: center; */
+  }
+  .one-rate-p {
+    padding-left: 33px;
+  }
+  .form-ua-convert > .form-currency > .form-wrapper {
+    padding: 1em;
+  }
 }

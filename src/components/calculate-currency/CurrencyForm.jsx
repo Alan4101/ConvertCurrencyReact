@@ -145,7 +145,7 @@ export default function CurrencyForm(props) {
             </div>
           </div>
         </div>
-        <div className="form-block">
+        <div className="form-block block-center">
           <p className="one-rate-p">
             1 {base} = {oneRate} {convertTo}
           </p>
