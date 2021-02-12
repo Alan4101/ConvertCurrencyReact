@@ -86,7 +86,7 @@ export default function CurrencyForm(props) {
               <FormControl className={classes.formControl}>
                 <TextField
                   itemType="number"
-                  label={cc.code(base).currency}
+                  label="100"
                   onChange={handleChangeInput}
                   onKeyPress={onlyNumber}
                   className={classes.label}
@@ -132,7 +132,7 @@ export default function CurrencyForm(props) {
               <FormControl className={classes.formControl}>
                 <TextField
                   disabled
-                  label={cc.code(convertTo).currency}
+                  label="100"
                   value={
                     amount === ""
                       ? ""
@@ -147,7 +147,7 @@ export default function CurrencyForm(props) {
         </div>
         <div className="form-block block-center">
           <p className="one-rate-p">
-            1 {base} = {oneRate} {convertTo}
+            1 {cc.code(base).currency} = {oneRate} {cc.code(convertTo).currency}
           </p>
         </div>
       </form>

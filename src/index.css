@@ -35,31 +35,6 @@ code {
   background-color: #282c34;
   /* color: #8a85ff; */
 }
-/*nav*/
-.nav-link {
-  color: #ffffff !important;
-}
-.active-link {
-  font-weight: bold;
-  color: #8a85ff !important;
-}
-.nav-link:hover {
-  color: #fff !important;
-  background-color: #8a85ff;
-  transition: all 0.3ms linear;
-}
-.indigo-c {
-  /* background: #8540f5; */
-  background-color: #24292e;
-}
-.dark-bg {
-  background-color: #282c34;
-}
-/*Navbar*/
-.navbar-collapse {
-  justify-content: center;
-}
-
 /*home page*/
 .title-page > h1 {
   font-weight: bold;
@@ -69,82 +44,7 @@ code {
   text-align: left;
   padding: 1em 0;
 }
-.table-currency {
-  box-shadow: 0px 1px 5px -2px #000;
-}
-.table-header > th {
-  font-weight: bold;
-}
-.item-currency {
-  width: 350px;
-  list-style-type: none;
-  display: flex;
-  border-bottom: 1px solid #999999;
-}
-.table-header > th,
-.color-table-text > th,
-.color-table-text > td:not(.base-currency) {
-  color: #8a85ff !important;
-}
-.base-currency {
-  color: #d4d3eb;
-}
-
-/***
-* Calculate-currency
-***/
-.container-converter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1em 0;
-}
-.form-currency {
-  width: 100%;
-  margin: 1em 0;
-  background-color: #fff;
-}
-
-/*currency-list*/
-.table-container {
-  border-radius: 20px;
-  background-color: #2f333b;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-  padding-bottom: 1em;
-}
-.table-title {
-  text-align: left;
-  font-weight: bold;
-  font-size: 30px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #d2d2d2;
-  padding: 0.5em;
-}
-.table-currency-rate {
-  width: 100%;
-  color: #d2d2d2;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-.table-currency-rate > thead > tr > th {
-  background-color: #353942;
-  padding: 0.5em 0;
-  font-size: 20px;
-}
-.table-currency-rate > tbody > tr > th {
-  padding: 0.6em 0;
-  font-size: 18px;
-  /* font-size: calc(0.1rem + 1.23vw); */
-}
-.table-currency-rate > tbody > tr:nth-child(even) {
-  background-color: #353942;
-}
 @media (max-width: 768px) and (min-width: 320px) {
-  .table-currency-rate > thead > tr > th {
-    font-size: 16px;
-  }
-  .table-currency-rate > tbody > tr > th {
-    font-size: 14px;
-  }
   .main-container {
     padding-bottom: 2em;
   }
@@ -152,8 +52,6 @@ code {
 @media (max-width: 320px) {
   .title-page > h1 {
     font-size: 30px;
-  }
-  .table-title {
-    font-size: 25px;
+    text-align: center;
   }
 }

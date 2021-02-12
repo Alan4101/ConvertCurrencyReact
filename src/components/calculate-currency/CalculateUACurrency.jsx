@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import axios from "axios"
+import cc from "currency-codes"
 
 import {
   TextField,
@@ -31,6 +32,9 @@ export default function CalculateUACurrency() {
     const getCurrencyRate = async () => {
       try {
         const datas = await axios.get(configAPI.API_PRIVATBANK)
+
+        datas.data.pop()
+        datas.data[2].ccy = "RUB"
         setData(datas.data)
       } catch (error) {
         throw error
@@ -190,7 +194,7 @@ export default function CalculateUACurrency() {
                 <FormControl className={classes.formControl}>
                   <TextField
                     itemType="number"
-                    label="Введіть суму"
+                    label="100"
                     className={classes.label}
                     onChange={handleInputChange}
                   />
@@ -219,8 +223,8 @@ export default function CalculateUACurrency() {
             <p className="one-rate-p">
               {oneRate
                 ? saleOrBuy
-                  ? `1 ${currnecy} = ${oneRate} UAH`
-                  : `1 UAH = ${oneRate} ${currnecy} `
+                  ? `1 ${cc.code(currnecy).currency} = ${oneRate} UAH`
+                  : `1 UAH = ${oneRate} ${cc.code(currnecy).currency} `
                 : ""}
             </p>
           </div>

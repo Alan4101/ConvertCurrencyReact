@@ -3,58 +3,6 @@ select {
   padding: 0;
   margin: 0;
 }
-.form-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  /* color: #8a85ff; */
-}
-.form-currency {
-  border-radius: 20px;
-  background-color: #2f333b;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-  padding-bottom: 1em;
-}
-.form-wrapper {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-}
-
-.form-block {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.MuiFormControl-root > label {
-  font-size: 14px;
-}
-.MuiInputBase-input {
-  /* color: #8a85ff !important; */
-  color: #fff !important;
-}
-.MuiInput-underline:after {
-  border-bottom: 2px solid #8a85ff !important;
-}
-.MuiFormLabel-root {
-  color: rgb(161, 161, 161) !important;
-}
-/* .form-block:nth-child(2) {
-  justify-content: flex-end;
-} */
-.form-block > .mb-3 {
-  padding: 1em;
-}
-.form-block > .plr-1 {
-  display: flex;
-  align-items: center;
-}
-.form-block__wrapper {
-  transform: rotate(90deg);
-}
 .text-color {
   color: #8a85ff !important;
 }
@@ -63,6 +11,40 @@ select {
 }
 .color-theme {
   background-color: #8a85ff !important;
+}
+/*currency-form*/
+.form-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.form-currency {
+  border-radius: 20px;
+  background-color: #2f333b;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+  padding-bottom: 1em;
+  width: 100%;
+  margin: 1em 0;
+}
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.form-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.form-block > .mb-3 {
+  padding: 1em;
+}
+.form-block > .plr-1 {
+  display: flex;
+  align-items: center;
 }
 .form-legend {
   text-align: left;
@@ -76,14 +58,38 @@ select {
   font-size: 20px;
   color: #adadad;
 }
-.plr-1 {
-  /* padding: 0 1em; */
+.form-block__wrapper {
+  transform: rotate(90deg);
 }
+/*end form currency*/
+
+/*material-ui custom styles*/
+.MuiFormControl-root > label {
+  font-size: 20px;
+}
+.MuiInputBase-input {
+  color: #fff !important;
+  font-size: 25px !important;
+}
+.MuiInput-underline:after {
+  border-bottom: 2px solid #8a85ff !important;
+}
+.MuiFormLabel-root {
+  color: rgb(161, 161, 161) !important;
+}
+.MuiSelect-select {
+  font-size: 20px !important;
+}
+/*end custom styles*/
+
+/*CurrencyUAComponent*/
 .form-ua-convert {
   width: 100%;
 }
-
-/*CurrencyUAComponent*/
+.form-ua-convert > .form-currency > .form-wrapper {
+  justify-content: space-around;
+  padding-top: 1em;
+}
 .mb-3 > .currency-text {
   margin: 0 30px 5px 6px;
   color: #ffffff;
@@ -92,10 +98,6 @@ select {
 .mb-3 {
   display: flex;
   align-items: flex-end;
-}
-.form-ua-convert > .form-currency > .form-wrapper {
-  justify-content: space-around;
-  padding-top: 1em;
 }
 .btnm-primary {
   border: none;
@@ -118,7 +120,63 @@ select {
 .one-rate-p {
   color: #adadad;
   font-size: 14px;
+  font-style: italic;
 }
+/*end currency-ua*/
+
+/*Currency list*/
+.table-currency {
+  box-shadow: 0px 1px 5px -2px #000;
+}
+.table-header > th {
+  font-weight: bold;
+}
+.item-currency {
+  width: 350px;
+  list-style-type: none;
+  display: flex;
+  border-bottom: 1px solid #999999;
+}
+.table-header > th,
+.color-table-text > th,
+.color-table-text > td:not(.base-currency) {
+  color: #8a85ff !important;
+}
+.base-currency {
+  color: #d4d3eb;
+}
+.table-container {
+  border-radius: 20px;
+  background-color: #2f333b;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+  padding-bottom: 1em;
+}
+.table-title {
+  text-align: left;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #d2d2d2;
+  padding: 0.5em;
+}
+.table-currency-rate {
+  width: 100%;
+  color: #d2d2d2;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.table-currency-rate > thead > tr > th {
+  background-color: #353942;
+  padding: 0.5em 0;
+  font-size: 20px;
+}
+.table-currency-rate > tbody > tr > th {
+  padding: 0.6em 0;
+  font-size: 18px;
+}
+.table-currency-rate > tbody > tr:nth-child(even) {
+  background-color: #353942;
+}
+/*end list*/
 @media (max-width: 1024px) and (min-width: 320px) {
   .form-wrapper {
     flex-direction: column;
@@ -129,8 +187,9 @@ select {
   .form-foreign__wrapper > .form-block > .mb-3 {
     padding-bottom: 0 !important;
   }
-  .form-block {
-    justify-content: flex-start;
+  .form-block,
+  .form-legend > .form-block {
+    justify-content: center;
   }
   .form-container > .form-currency > .form-wrapper {
     padding: 1em;
@@ -145,13 +204,33 @@ select {
     padding-top: 0 !important;
     margin-bottom: 0 !important;
   }
-  .block-center {
-    /* justify-content: center; */
-  }
   .one-rate-p {
     padding-left: 33px;
   }
   .form-ua-convert > .form-currency > .form-wrapper {
     padding: 1em;
+  }
+}
+@media (max-width: 768px) and (min-width: 320px) {
+  .table-currency-rate > thead > tr > th,
+  .table-currency-rate > tbody > tr > th {
+    font-size: 15px;
+  }
+  .form-legend > p {
+    font-size: 18px;
+  }
+  .form-legend,
+  .table-title {
+    text-align: center;
+  }
+  .MuiFormControl-root > label,
+  .MuiSelect-select,
+  .MuiInputBase-input {
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 320px) {
+  .table-title {
+    font-size: 22px;
   }
 }
