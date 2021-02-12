@@ -57,8 +57,10 @@ export function fetchUACurrency() {
   return async (dispatch) => {
     try {
       dispatch(loaderShow())
-      const response = await axios.get(configAPI.API_PRIVATBANK)
-      dispatch({ type: FETCH_UA_CURRENCY, payload: response.data })
+      const responce = await axios.get(configAPI.API_PRIVATBANK)
+      responce.data.pop()
+      responce.data[2].ccy = "RUB"
+      dispatch({ type: FETCH_UA_CURRENCY, payload: responce.data })
       dispatch(loaderHide())
     } catch (err) {
       dispatch(errorShow(err))

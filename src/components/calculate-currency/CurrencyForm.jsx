@@ -1,6 +1,5 @@
 import React from "react"
 import cc from "currency-codes"
-
 import {
   TextField,
   IconButton,
@@ -8,12 +7,17 @@ import {
   InputLabel,
   FormControl,
   MenuItem,
-  makeStyles,
+  
 } from "@material-ui/core"
 import ImportExportIcon from "@material-ui/icons/ImportExport"
+import useStyles from './styleConfig'
+import { onlyNumber } from '../../utils/utils'
+
 import "./calculate-curency.css"
 
 export default function CurrencyForm(props) {
+
+  const classes = useStyles()
   const {
     date,
     result,
@@ -24,26 +28,6 @@ export default function CurrencyForm(props) {
     oneRate,
   } = props.opt
 
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      minWidth: 90,
-      width: 50,
-      color: "#fff",
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-      color: "#fff",
-    },
-    select: {
-      minWidth: 70,
-    },
-  }))
-
-  const classes = useStyles()
-
-  const onlyNumber = (e) => {
-    e.target.value = e.target.value.replace(/[^0-9.]/g, "")
-  }
   const handleChangeInput = (e) => {
     props.onChangeInput(e)
   }

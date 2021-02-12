@@ -1,21 +1,27 @@
 import React, { useState, useEffect, useRef } from "react"
-import axios from "axios"
+import { useDispatch, useSelector } from "react-redux"
 import cc from "currency-codes"
-
 import {
   TextField,
   Select,
   InputLabel,
   FormControl,
   MenuItem,
-  makeStyles,
 } from "@material-ui/core"
-import configAPI from "../configAPI"
+import useStyles from "./styleConfig"
 
+import { fetchUACurrency } from "../../redux/actions"
+import { swapBlockElements, onlyNumber } from "../../utils/utils"
 import "./calculate-curency.css"
 
 export default function CalculateUACurrency() {
-  const [data, setData] = useState([])
+
+  const dispatch = useDispatch()
+  const currencyData = useSelector((state) => state.currency.uaCurrency)
+  const classes = useStyles()
+
+  const select = useRef(null)
+  const paragrafCurrency = useRef(null)
 
   const [state, setState] = useState({
     ammount: null,
@@ -25,73 +31,37 @@ export default function CalculateUACurrency() {
     activeBtn: true,
   })
 
-  const select = useRef(null)
-  const paragrafCurrency = useRef(null)
-
-  useEffect(() => {
-    const getCurrencyRate = async () => {
-      try {
-        const datas = await axios.get(configAPI.API_PRIVATBANK)
-
-        datas.data.pop()
-        datas.data[2].ccy = "RUB"
-        setData(datas.data)
-      } catch (error) {
-        throw error
+  function calculateResultAndRate(element, amount, type = "buy") {
+    const result = (type === "buy"
+      ? +amount * Number(element[type])
+      : +amount / Number(element[type])
+    ).toFixed(3)
+    const oneRate = (type === "buy"
+      ? 1 * Number(element[type])
+      : 1 / Number(element[type])
+    ).toFixed(3)
+    setState((prevState) => {
+      return {
+        ...prevState,
+        result,
+        oneRate,
       }
-    }
-
-    getCurrencyRate()
-  }, [])
+    })
+  }
 
   useEffect(() => {
-    if (!state.saleOrBuy) {
-      data.forEach((i) => {
-        if (i.ccy === state.currnecy) {
-          setState((prev) => {
-            const result = (state.ammount / Number(i.sale)).toFixed(4)
-            const oneRate = (1 / Number(i.sale)).toFixed(4)
-            return {
-              ...prev,
-              result,
-              oneRate,
-            }
-          })
-        }
-      })
-    } else {
-      data.forEach((i) => {
-        if (i.ccy === state.currnecy) {
-          setState((prev) => {
-            const result = (state.ammount * Number(i.buy)).toFixed(4)
-            const oneRate = (1 * Number(i.buy)).toFixed(4)
-            return {
-              ...prev,
-              result,
-              oneRate,
-            }
-          })
-        }
-      })
-    }
-  }, [state.ammount, state.currnecy, data, state.saleOrBuy, state.activeBtn])
+    dispatch(fetchUACurrency())
+  }, [dispatch])
 
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      minWidth: 90,
-      width: 50,
-      color: "#fff",
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-      color: "#fff",
-    },
-    select: {
-      minWidth: 70,
-    },
-  }))
-
-  const classes = useStyles()
+  useEffect(() => {
+    currencyData.forEach((i) => {
+      if (i.ccy === state.currnecy) {
+        !state.saleOrBuy
+          ? calculateResultAndRate(i, state.ammount, "sale")
+          : calculateResultAndRate(i, state.ammount, "buy")
+      }
+    })
+  }, [state.ammount, state.currnecy, state.saleOrBuy, currencyData])
 
   const handleChangeSelect = (e) => {
     setState((prevState) => {
@@ -111,14 +81,6 @@ export default function CalculateUACurrency() {
     })
   }
 
-  const swapBlockElements = () => {
-    const seletctParent = select.current.parentElement
-    const paragrafParent = paragrafCurrency.current.parentElement
-
-    seletctParent.prepend(paragrafCurrency.current)
-    paragrafParent.prepend(select.current)
-  }
-
   const handleSale = (e) => {
     e.preventDefault()
     setState((prev) => {
@@ -128,7 +90,7 @@ export default function CalculateUACurrency() {
         saleOrBuy: false,
       }
     })
-    swapBlockElements()
+    swapBlockElements(select, paragrafCurrency)
   }
   /*купити */
   const handleBuy = (e) => {
@@ -140,7 +102,7 @@ export default function CalculateUACurrency() {
         activeBtn: true,
       }
     })
-    swapBlockElements()
+    swapBlockElements(paragrafCurrency, select)
   }
   const { amount, result, currnecy, activeBtn, saleOrBuy, oneRate } = state
 
@@ -182,7 +144,7 @@ export default function CalculateUACurrency() {
                     value={currnecy}
                     onChange={handleChangeSelect}
                   >
-                    {data.map((currency) => (
+                    {currencyData.map((currency) => (
                       <MenuItem key={currency.buy} value={currency.ccy}>
                         {currency.ccy}
                       </MenuItem>
@@ -197,6 +159,7 @@ export default function CalculateUACurrency() {
                     label="100"
                     className={classes.label}
                     onChange={handleInputChange}
+                    onKeyDown={onlyNumber}
                   />
                 </FormControl>
               </div>

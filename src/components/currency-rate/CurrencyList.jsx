@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import CurrencyItem from "../currency-rate/CurrencyItem"
@@ -13,7 +13,7 @@ const CurrencyList = () => {
   const loader = useSelector((state) => state.loadingAndError.isLoaded)
   const isError = useSelector((state) => state.loadingAndError.loadError)
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchUACurrency())
   }, [dispatch])
 
