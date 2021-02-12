@@ -9,9 +9,9 @@ import {
   MenuItem,
 } from "@material-ui/core"
 import useStyles from "./styleConfig"
-
 import { fetchUACurrency } from "../../redux/actions"
 import { swapBlockElements, onlyNumber } from "../../utils/utils"
+
 import "./calculate-curency.css"
 
 export default function CalculateUACurrency() {
